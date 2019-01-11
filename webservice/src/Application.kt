@@ -11,7 +11,7 @@ import java.net.URL
 import java.net.URLEncoder
 
 fun main(args: Array<String>) {
-    val server = embeddedServer(Netty, port = 8080) {
+    val server = embeddedServer(Netty, port = 8081) {
         routing {
             get("/") {
                 call.respondText("Got to /movies to search movies", ContentType.Text.Plain)
