@@ -1,7 +1,8 @@
-package com.blaketmorgan.itapp.webservice
+package com.blaketmorgan.ipapp.webservice
 
 import io.github.cdimascio.dotenv.dotenv
 import io.ktor.application.*
+import io.ktor.features.CORS
 import io.ktor.http.*
 import io.ktor.response.*
 import io.ktor.routing.*
@@ -12,9 +13,12 @@ import java.net.URLEncoder
 
 fun main(args: Array<String>) {
     val server = embeddedServer(Netty, port = 8081) {
+        install(CORS) {
+            anyHost()
+        }
         routing {
             get("/") {
-                call.respondText("Got to /movies to search movies", ContentType.Text.Plain)
+                call.respondText("Go to /movies to search movies", ContentType.Text.Plain)
             }
             get("/movies") {
                 val query = call.request.queryParameters["search"] ?: ""
