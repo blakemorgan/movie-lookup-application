@@ -1,5 +1,7 @@
 package com.blaketmorgan.ipapp.webservice
 
+import com.beust.klaxon.JsonObject
+import com.beust.klaxon.Parser
 import io.github.cdimascio.dotenv.dotenv
 import io.ktor.application.*
 import io.ktor.features.CORS
@@ -22,7 +24,37 @@ fun main(args: Array<String>) {
             }
             get("/movies") {
                 val query = call.request.queryParameters["search"] ?: ""
-                call.respondText(queryTmdb(query))
+                val response = queryTmdb(query)
+
+                val parser = Parser()
+                val stringBuilder: StringBuilder = StringBuilder(response)
+                val json: JsonObject = parser.parse(stringBuilder) as JsonObject
+                val results = json.array<JsonObject>("results")
+
+                var stringToReturn = "["
+                if (results != null) {
+                    val i = results.size;
+                    var it = 0
+                    for (result in results) {
+                        val movieId: Int = result["id"] as Int
+                        val title: String = "\"" + result["title"] + "\""
+                        val posterImageUrl: String =
+                            "\"https://image.tmdb.org/t/p/w154" + result["poster_path"] + "\""
+                        val popularitySumary: String =
+                            "\"" + result["popularity"] + " out of " + result["vote_count"] + "\""
+                        val movie =
+                            "{\"movie_id\": $movieId, \"title\": $title, \"poster_image_url\": $posterImageUrl, \"popularity_summary\": $popularitySumary}"
+                        stringToReturn += movie
+                        it++
+                        if (it != i && it != 10)
+                            stringToReturn += ","
+                        if (it == 10)
+                            break
+                    }
+                }
+                stringToReturn += "]"
+
+                call.respondText(stringToReturn)
             }
         }
     }
