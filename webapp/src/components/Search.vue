@@ -2,8 +2,8 @@
     <div id="search">
         <div id="search-box">
             <input type="search" placeholder="Search movies..." v-model="searchInputValue" name="search"
-                   id="search-input"/>
-            <button id="search-submit" @click="runSearch">Search</button>
+                   id="search-input" @keyup.enter="runSearch"/>
+            <button id="search-submit" @click="runSearch" type="submit">Search</button>
         </div>
         <div id="search-results">
             <!-- eslint-disable-next-line -->
