@@ -34,7 +34,7 @@ fun main(args: Array<String>) {
                 var stringToReturn = "["
                 if (results != null) {
                     val i = results.size;
-                    var it = 0
+                    var iterate = 0
                     for (result in results) {
                         val movieId: Int = result["id"] as Int
                         val title: String = "\"" + result["title"] + "\""
@@ -45,10 +45,10 @@ fun main(args: Array<String>) {
                         val movie =
                             "{\"movie_id\": $movieId, \"title\": $title, \"poster_image_url\": $posterImageUrl, \"popularity_summary\": $popularitySumary}"
                         stringToReturn += movie
-                        it++
-                        if (it != i && it != 10)
+                        iterate++
+                        if (iterate != i && iterate != 10)
                             stringToReturn += ","
-                        if (it == 10)
+                        if (iterate == 10)
                             break
                     }
                 }
