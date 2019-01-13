@@ -1,5 +1,6 @@
 <template>
   <div id="app">
+    <h1>TMDb Lookup App</h1>
     <Search />
   </div>
 </template>
