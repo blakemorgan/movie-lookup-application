@@ -39,7 +39,7 @@ fun main(args: Array<String>) {
                         val movieId: Int = result["id"] as Int
                         val title: String = "\"" + result["title"] + "\""
                         val posterImageUrl: String =
-                            "\"https://image.tmdb.org/t/p/w154" + result["poster_path"] + "\""
+                            "\"https://image.tmdb.org/t/p/w92" + result["poster_path"] + "\""
                         val popularitySumary: String =
                             "\"" + result["popularity"] + " out of " + result["vote_count"] + "\""
                         val movie =
