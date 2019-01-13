@@ -5,6 +5,10 @@
                    id="search-input" @keyup.enter="runSearch"/><br>
             <button id="search-submit" @click="runSearch" type="submit">Search</button>
         </div>
+        <div v-if="loading">
+            <img src="../assets/ajax-loader.gif"/>
+            Loading...
+        </div>
         <div id="search-results">
             <!-- eslint-disable-next-line -->
             <div v-for="movie in data" class="movie">
@@ -23,15 +27,20 @@
         name: "Search",
         methods: {
             runSearch() {
+                this.loading = true
                 axios
                     .get("//localhost:8081/movies?search=" + this.searchInputValue)
-                    .then(response => (this.data = response.data))
+                    .then((response) => {
+                        this.loading = false
+                        this.data = response.data
+                    })
             }
         },
         data: function () {
             return {
                 searchInputValue: '',
-                data: null
+                data: null,
+                loading: false
             }
         }
     }
