@@ -2,11 +2,11 @@
     <div id="search">
         <div id="search-box">
             <input type="search" placeholder="Search movies..." v-model="searchInputValue" name="search"
-                   id="search-input" @keyup.enter="runSearch"/><br>
+                   id="search-input" @keyup.enter="runSearch" aria-label="Search movies"/><br>
             <button id="search-submit" @click="runSearch" type="submit">Search</button>
         </div>
         <div v-if="loading">
-            <img src="../assets/ajax-loader.gif"/>
+            <img src="../assets/ajax-loader.gif" alt="Loading"/>
             Loading...
         </div>
         <div id="search-results">
