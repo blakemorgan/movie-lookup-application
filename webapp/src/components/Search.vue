@@ -3,11 +3,12 @@
     <!-- Create a search form -->
     <div id="search">
 
-        <!-- This is not in a form tag do the page doesn't redirect when the button is clicked -->
         <div id="search-box">
-            <input type="search" placeholder="Search movies..." v-model="searchInputValue" name="search"
-                   id="search-input" @keyup.enter="runSearch" aria-label="Search movies"/><br>
-            <button id="search-submit" @click="runSearch" type="submit">Search</button>
+            <form>
+                <input type="search" placeholder="Search movies..." v-model="searchInputValue" name="search"
+                    id="search-input" @keyup.enter="runSearch" aria-label="Search movies"/><br>
+                <button id="search-submit" @click="runSearch" type="submit">Search</button>
+            </form>
         </div>
 
         <!-- Include loading icon -->
@@ -36,7 +37,8 @@
     export default {
         name: "Search",
         methods: {
-            runSearch() {
+            runSearch(event) {
+                event.preventDefault()
                 this.loading = true
                 // Send request to the server when user submits the form
                 axios
