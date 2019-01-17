@@ -43,4 +43,6 @@ Some additional features I've included in this application are:
 - Making it fully responsive.
 - Making it accessible to screen readers with proper labels and alt-text.
 
+## Screenshot
 
+![Screenshot of app](screenshot.png?raw=true)
