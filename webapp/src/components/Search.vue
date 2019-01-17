@@ -19,6 +19,7 @@
 
         <!-- Display search results -->
         <div id="search-results">
+            <p v-if="noResults">No results found.</p>
             <!-- eslint-disable-next-line -->
             <div v-for="movie in data" class="movie">
                 <img :src="movie.poster_image_url" :alt="movie.title" class="movie-poster"/>
@@ -38,8 +39,9 @@
         name: "Search",
         methods: {
             runSearch(event) {
-                event.preventDefault()
+                event.preventDefault() // Prevent redireciton on form
                 this.loading = true
+                this.noResults = false
                 // Send request to the server when user submits the form
                 axios
                     .get("//localhost:8081/movies?search=" + this.searchInputValue)
@@ -47,11 +49,13 @@
                         this.loading = false
                         this.data = response.data
                     })
+                if (this.data === false) { this.noResults = true }
             }
         },
         data: function () {
             return {
                 searchInputValue: '',
+                noResults : false,
                 data: null,
                 loading: false
             }
