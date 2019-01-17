@@ -1,14 +1,22 @@
 <template>
+   
+    <!-- Create a search form -->
     <div id="search">
+
+        <!-- This is not in a form tag do the page doesn't redirect when the button is clicked -->
         <div id="search-box">
             <input type="search" placeholder="Search movies..." v-model="searchInputValue" name="search"
                    id="search-input" @keyup.enter="runSearch" aria-label="Search movies"/><br>
             <button id="search-submit" @click="runSearch" type="submit">Search</button>
         </div>
+
+        <!-- Include loading icon -->
         <div v-if="loading">
             <img src="../assets/ajax-loader.gif" alt="Loading"/>
             Loading...
         </div>
+
+        <!-- Display search results -->
         <div id="search-results">
             <!-- eslint-disable-next-line -->
             <div v-for="movie in data" class="movie">
@@ -17,7 +25,9 @@
                 <p>Popularity: {{ movie.popularity_summary }}</p>
             </div>
         </div>
+
     </div>
+
 </template>
 
 <script>
@@ -28,6 +38,7 @@
         methods: {
             runSearch() {
                 this.loading = true
+                // Send request to the server when user submits the form
                 axios
                     .get("//localhost:8081/movies?search=" + this.searchInputValue)
                     .then((response) => {
